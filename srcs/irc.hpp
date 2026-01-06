@@ -1,0 +1,91 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   irc.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 11:30:39 by marvin            #+#    #+#             */
+/*   Updated: 2026/01/06 11:30:39 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef IRC_HPP
+#define IRC_HPP
+
+#include <iostream>
+#include <vector>
+#include <sys/socket.h> //-> for socket()
+#include <sys/types.h> //-> for socket()
+#include <netinet/in.h> //-> for sockaddr_in
+#include <fcntl.h>
+#include <unistd.h> //-> for close()
+#include <arpa/inet.h> //-> for inet_ntoa()
+#include <poll.h> //-> for poll()
+#include <csignal>
+
+class Client //-> class for client
+{
+    private:
+        int Fd;
+        std::string IPadd;
+    public:
+        Client(){};
+        int GetFd(){return Fd;}
+
+        void SetFd(int fd){Fd = fd;}
+        void setIpAdd(std::string ipadd){IPadd = ipadd;}
+};
+
+class Server
+{
+    private:
+        int Port;
+        int SerSocketFd;
+        static bool Signal;
+        std::vector<Client> clients;
+        std::vector<struct pollfd> fds;
+    public:
+        Server(){SerSocketFd = -1;}
+
+        void ServerInit();
+        void SerSocket();
+        void AcceptNewClient();
+        void ReceiveNewData(int fd);
+
+        static void SignalHandler(int signum);
+    
+        void CloseFds();
+        void ClearClients(int fd);
+};
+
+void Server::ClearClients(int fd){
+	for(size_t i = 0; i < fds.size(); i++){ //-> remove the client from the pollfd
+		if (fds[i].fd == fd)
+			{fds.erase(fds.begin() + i); break;}
+	}
+	for(size_t i = 0; i < clients.size(); i++){ //-> remove the client from the vector of clients
+		if (clients[i].GetFd() == fd)
+			{clients.erase(clients.begin() + i); break;}
+	}
+
+}
+
+struct sockaddr_in {
+    sa_family_t     sin_family;
+    in_port_t       sin_port;
+    struct  in_addr sin_addr;
+    char            sin_zero[8];
+};
+
+struct in_addr {
+    in_addr_t s_addr;
+};
+
+struct pollfd {
+    int     fd;
+    short   events;//-> requested events
+    short   revents;//-> returned events
+};
+
+#endif
