@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   irc.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tzizi <tzizi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 11:30:39 by marvin            #+#    #+#             */
-/*   Updated: 2026/01/06 11:30:39 by marvin           ###   ########.fr       */
+/*   Created: 2026/01/06 11:30:39 by tzizi            #+#    #+#             */
+/*   Updated: 2026/01/06 11:30:39 by tzizi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,6 @@
 #define GREEN "\e[1;32m"
 #define YELLOW "\e[1;33m"
 #define GREY "\e[38;5;249m"
-
-class Client //-> class for client
-{
-    private:
-        int Fd;
-        std::string IPadd;
-    public:
-        Client(){};
-        int GetFd(){return Fd;}
-
-        void SetFd(int fd){Fd = fd;}
-        void setIpAdd(std::string ipadd){IPadd = ipadd;}
-};
-
-class Server
-{
-    private:
-        int Port;
-        int SerSocketFd;
-        static bool Signal;
-        std::vector<Client> clients;
-        std::vector<struct pollfd> fds;
-    public:
-        Server(){SerSocketFd = -1;}
-
-        void ServerInit();
-        void SerSocket();
-        void AcceptNewClient();
-        void ReceiveNewData(int fd);
-
-        static void SignalHandler(int signum);
-    
-        void CloseFds();
-        void ClearClients(int fd);
-};
-
-void Server::ClearClients(int fd){
-	for(size_t i = 0; i < fds.size(); i++){ //-> remove the client from the pollfd
-		if (fds[i].fd == fd)
-			{fds.erase(fds.begin() + i); break;}
-	}
-	for(size_t i = 0; i < clients.size(); i++){ //-> remove the client from the vector of clients
-		if (clients[i].GetFd() == fd)
-			{clients.erase(clients.begin() + i); break;}
-	}
-
-}
 
 // struct sockaddr_in {
 //     sa_family_t     sin_family;

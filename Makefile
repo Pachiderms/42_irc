@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: tzizi <tzizi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/06 12:48:00 by marvin            #+#    #+#              #
-#    Updated: 2026/01/06 12:48:00 by marvin           ###   ########.fr        #
+#    Created: 2026/01/06 12:48:00 by tzizi            #+#    #+#              #
+#    Updated: 2026/01/06 12:48:00 by tzizi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ircserv
 CXX = c++
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = srcs/main.cpp \
+SRC = srcs/main.cpp srcs/client/client.cpp srcs/server/server.cpp \
 
 OBJS = ${SRC:.cpp=.o}
 
