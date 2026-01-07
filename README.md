@@ -14,3 +14,9 @@ https://pubs.opengroup.org/onlinepubs/007908799/xns/syssocket.h.html
 https://pubs.opengroup.org/onlinepubs/7908799/xsh/poll.h.html : poll.h doc
 
 https://medium.com/@afatir.ahmedfatir/small-irc-server-ft-irc-42-network-7cee848de6f9 : irc guide
+
+CMD:
+
+netstat -lnp | grep <port>
+
+nc -C 127.0.0.1 <port>
