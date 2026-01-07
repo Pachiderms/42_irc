@@ -22,10 +22,12 @@ OBJS = ${SRC:.cpp=.o}
 all: ${NAME}
 
 ${NAME}: ${OBJS}
+	mkdir srcs/objs
 	${CXX} ${CPPFLAGS} ${OBJS} -o ${NAME}
+	mv srcs/*.o srcs/objs
 
 clean:
-	rm -f *.o
+	rm -rf srcs/objs
 
 fclean: clean
 	rm -f ${NAME}

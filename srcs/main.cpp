@@ -22,11 +22,11 @@ void Server::SignalHandler(int signum)
 
 void Server::CloseFds(){
 	for(size_t i = 0; i < clients.size(); i++){
-		std::cout << RED << "Client <" << clients[i].GetFd() << "> Disconnected" << WHI << std::endl;
+		std::cout << RED << "Client <" << clients[i].GetFd() << "> Disconnected" << WHITE << std::endl;
 		close(clients[i].GetFd());
 	}
 	if (SerSocketFd != -1){
-		std::cout << RED << "Server <" << SerSocketFd << "> Disconnected" << WHI << std::endl;
+		std::cout << RED << "Server <" << SerSocketFd << "> Disconnected" << WHITE << std::endl;
 		close(SerSocketFd);
 	}
 }
@@ -61,10 +61,10 @@ void Server::SerSocket()
 
 void Server::ServerInit()
 {
-	this->Port = 4444;
+	this->Port = 6667;
 	SerSocket(); //-> create the server socket
 
-	std::cout << GRE << "Server <" << SerSocketFd << "> Connected" << WHI << std::endl;
+	std::cout << GREEN << "Server <" << SerSocketFd << "> Connected" << WHITE << std::endl;
 	std::cout << "Waiting to accept a connection...\n";
 
 	while (Server::Signal == false) //-> run the server until the signal is received
@@ -109,7 +109,7 @@ void Server::AcceptNewClient()
 	clients.push_back(cli); //-> add the client to the vector of clients
 	fds.push_back(NewPoll); //-> add the client socket to the pollfd
 
-	std::cout << GRE << "Client <" << incofd << "> Connected" << WHI << std::endl;
+	std::cout << GREEN << "Client <" << incofd << "> Connected" << WHITE << std::endl;
 }
 
 void Server::ReceiveNewData(int fd)
@@ -120,14 +120,14 @@ void Server::ReceiveNewData(int fd)
 	ssize_t bytes = recv(fd, buff, sizeof(buff) - 1 , 0); //-> receive the data
 
 	if(bytes <= 0){ //-> check if the client disconnected
-		std::cout << RED << "Client <" << fd << "> Disconnected" << WHI << std::endl;
+		std::cout << RED << "Client <" << fd << "> Disconnected" << WHITE << std::endl;
 		ClearClients(fd); //-> clear the client
 		close(fd); //-> close the client socket
 	}
 
 	else{ //-> print the received data
 		buff[bytes] = '\0';
-		std::cout << YEL << "Client <" << fd << "> Data: " << WHI << buff;
+		std::cout << YELLOW << "Client <" << fd << "> Data: " << WHITE << buff;
 		//here you can add your code to process the received data: parse, check, authenticate, handle the command, etc...
 	}
 }
