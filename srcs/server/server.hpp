@@ -14,6 +14,8 @@
 #define SERVER_HPP
 
 #include "../irc.hpp"
+#include <sstream>
+
 class Client;
 
 class Server
@@ -36,6 +38,17 @@ class Server
     
         void CloseFds();
         void ClearClients(int fd);
+};
+
+class Request
+{
+    public:
+        Request(){cmd_set = false;}
+        
+        std::string cmd;
+        std::vector<std::string> args;
+        std::vector<std::string> params;
+        bool cmd_set;
 };
 
 #endif

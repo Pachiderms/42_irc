@@ -24,7 +24,7 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	mkdir srcs/objs
 	${CXX} ${CPPFLAGS} ${OBJS} -o ${NAME}
-	mv srcs/*.o srcs/objs
+	mv srcs/*.o srcs/client/*.o srcs/server/*.o srcs/objs
 
 clean:
 	rm -rf srcs/objs

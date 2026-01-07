@@ -20,6 +20,7 @@ class Client
     private:
         int Fd;
         std::string IPadd;
+        std::string nickname;
     public:
         Client(){};
         int GetFd(){return Fd;}

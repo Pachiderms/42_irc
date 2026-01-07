@@ -129,7 +129,26 @@ void Server::ReceiveNewData(int fd)
 	else{ //-> print the received data
 		buff[bytes] = '\0';
 		std::cout << YELLOW << "Client <" << fd << "> Data: " << WHITE << buff;
-		//here you can add your code to process the received data: parse, check, authenticate, handle the command, etc...
+		std::stringstream msgstream(buff);
+		std::string token;
+		Request  request;
+		while (msgstream >> token){
+			if (!request.cmd_set){
+				request.cmd = token;
+				request.cmd_set = true;
+			}
+			else if (std::string("+-").find(token[0], 0) != std::string::npos){
+				request.args.push_back(token);
+			}
+			else{
+				request.params.push_back(token);
+			}
+		}
+		std::cout << "CMD: " << request.cmd << std::endl;
+		std::cout << "args: ";
+		for (size_t i = 0; i < request.args.size(); i++){std::cout << request.args[i] << std::endl;}
+		std::cout << "params: ";
+		for (size_t i = 0; i < request.params.size(); i++){std::cout << request.params[i] << std::endl;}
 	}
 }
 

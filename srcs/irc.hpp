@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <string>
 #include <vector>
 #include <sys/socket.h> //-> for socket()bind , accept etc...
 #include <sys/types.h> //-> for socket()
