@@ -21,16 +21,24 @@ class Client;
 class Server
 {
     private:
-        int Port;
-        int SerSocketFd;
+        int port;
+        int server_socket_fd;
+        std::string pwd;
         static bool Signal;
         std::vector<Client> clients;
         std::vector<struct pollfd> fds;
     public:
-        Server(){SerSocketFd = -1;}
+        Server(){server_socket_fd = -1;}
 
-        void ServerInit();
-        void SerSocket();
+        int GetPort(){return this->port;}
+        void SetPort(int _port){this->port = _port;}
+        int GetFd(){return this->server_socket_fd;}
+        void SetFd(int fd){this->server_socket_fd = fd;}
+        void SetPassword(std::string _pwd){this->pwd = _pwd;}
+        std::string GetPassword(){return this->pwd;}
+
+        void ServerInit(std::string port, std::string pwd);
+        void SetServerSocket();
         void AcceptNewClient();
         void ReceiveNewData(int fd);
 

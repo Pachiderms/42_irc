@@ -14,14 +14,19 @@
 #include "server/server.hpp"
 #include "client/client.hpp"
 
-int main()
+int main(int ac, char** av)
 {
+	if (ac != 3)
+	{
+		std::cout << RED << "Error: PLS LAUNCH THE SERVER THIS WAY: " << BWHITE << "'./<executable> <listenPort> <password>'.\n";
+		return -1;
+	}
 	Server ser;
 	std::cout << "---- SERVER ----" << std::endl;
 	try{
 		signal(SIGINT, Server::SignalHandler); //-> catch the signal (ctrl + c)
 		signal(SIGQUIT, Server::SignalHandler); //-> catch the signal (ctrl + \)
-		ser.ServerInit(); //-> initialize the server
+		ser.ServerInit(av[1], av[2]); //-> initialize the server
 	}
 	catch(const std::exception& e){
 		ser.CloseFds(); //-> close the file descriptors

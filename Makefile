@@ -22,7 +22,7 @@ OBJS = ${SRC:.cpp=.o}
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	mkdir srcs/objs
+	mkdir -p srcs/objs
 	${CXX} ${CPPFLAGS} ${OBJS} -o ${NAME}
 	mv srcs/*.o srcs/client/*.o srcs/server/*.o srcs/objs
 

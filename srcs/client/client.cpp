@@ -11,3 +11,5 @@
 /* ************************************************************************** */
 
 #include "client.hpp"
+
+Client::Client(std::string nickname, std::string username, int fd): fd(fd), nickname(nickname), username(username){}

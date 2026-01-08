@@ -15,7 +15,6 @@
 
 #include <iostream>
 #include <cstring>
-#include <string>
 #include <vector>
 #include <sys/socket.h> //-> for socket()bind , accept etc...
 #include <sys/types.h> //-> for socket()
@@ -29,9 +28,10 @@
 #define RED "\e[1;31m"
 #define BLUE "\e[0;34m"
 #define WHITE "\e[0;37m"
+#define BWHITE "\e[1;37m"
 #define GREEN "\e[1;32m"
 #define YELLOW "\e[1;33m"
-#define GREY "\e[38;5;249m"
+#define GREY "\e[38;5;247m"
 
 // struct sockaddr_in {
 //     sa_family_t     sin_family;

@@ -18,14 +18,18 @@
 class Client
 {
     private:
-        int Fd;
+        int fd;
         std::string IPadd;
         std::string nickname;
+        std::string username;
+
+        bool registered;
     public:
         Client(){};
-        int GetFd(){return Fd;}
+        Client(std::string nickname, std::string username, int fd);
+        int GetFd(){return fd;}
 
-        void SetFd(int fd){Fd = fd;}
+        void SetFd(int fd){fd = fd;}
         void setIpAdd(std::string ipadd){IPadd = ipadd;}
 };
 
